@@ -6,8 +6,7 @@ import App from "./App";
 import "./index.css";
 // import reportWebVitals from "./reportWebVitals";
 import configureStore from "./redux/store";
-// import * as SW from "./registerSW";
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import * as SW from "./registerSW";
 const store = configureStore();
 
 ReactDOM.render(
@@ -24,4 +23,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals(console.log);
 
-serviceWorkerRegistration.register();
+SW.register();
