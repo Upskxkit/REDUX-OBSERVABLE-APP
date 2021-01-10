@@ -51,7 +51,7 @@ function onFetch(event) {
 async function router(req) {
   let url = new URL(req.url);
   let reqUrl = url.pathname;
-  let cache = await caches.open(cacheName);
+  let cache = caches.open(cacheName);
   let res;
   if (url.origin === location.origin) {
     let fetchOptions = {

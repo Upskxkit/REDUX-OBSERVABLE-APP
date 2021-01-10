@@ -9,7 +9,7 @@
 });
  */
 
-const version = 5;
+const version = 4;
 const cacheName = `redux-app-cache-${version}`;
 const urlsToCache = [{ revision: "", url: "/" }, ...self.__WB_MANIFEST];
 
@@ -45,14 +45,14 @@ async function onActivation() {
 }
 
 function onFetch(event) {
-  event.respondWith(router(event.request));
+  event.waitUntil(router(event.request));
 }
 
 async function router(req) {
-  let url = new URL(req.url);
+  let url = URL(req.url);
   let reqUrl = url.pathname;
-  let cache = await caches.open(cacheName);
-  let res;
+  let cache = caches.open(cacheName);
+
   if (url.origin === location.origin) {
     let fetchOptions = {
       method: req.method,
@@ -61,18 +61,10 @@ async function router(req) {
       credentials: "omit",
     };
 
-    try {
-      res = await fetch(url, fetchOptions);
+    let res = await fetch(url, fetchOptions);
 
-      if (res.ok) {
-        await cache.put(url, res.clone());
-        return res;
-      }
-    } catch {}
-
-    res = await cache.match(reqUrl);
-
-    if (res) {
+    if (res.ok) {
+      await cache.put(url, res.clone());
       return res;
     }
   }
@@ -82,7 +74,7 @@ async function cacheClear() {
   let cachesNames = await caches.keys();
   let oldCachesNames = cachesNames.filter(function matchOldCache(cacheName) {
     if (/^redux-app-cache-\d+$/.test(cacheName)) {
-      let [, cacheVersion] = cacheName.match(/^redux-app-cache-(\d+)$/);
+      let [, cacheVersion] = cacheName.match(/^redux-app-cache-(\d)$/);
 
       cacheVersion = cacheVersion != null ? Number(cacheVersion) : cacheVersion;
 

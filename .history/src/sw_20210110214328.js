@@ -17,7 +17,6 @@ async function main() {
 
 async function handleInstall() {
   self.skipWaiting();
-  console.log(`Service Worker (${version}) installed;`);
 }
 
 function handleActivation(event) {

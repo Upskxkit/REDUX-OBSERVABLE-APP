@@ -1,9 +1,19 @@
+/* eslint-disable no-restricted-globals */
+
+// This allows the web app to trigger skipWaiting via
+// registration.waiting.postMessage({type: 'SKIP_WAITING'})
+/* self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+ */
+
 const version = 1;
 const cacheName = `redux-app-cache ${version}`;
 const urlsToCache = [{ revision: "", url: "/" }, ...self.__WB_MANIFEST];
 
 self.addEventListener("install", handleInstall);
-
 self.addEventListener("activate", handleActivation);
 
 main().catch(console.error);

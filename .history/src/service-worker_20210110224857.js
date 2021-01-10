@@ -92,6 +92,8 @@ async function cacheClear() {
     return false;
   });
 
+  console.log(oldCachesNames);
+
   return Promise.all(
     oldCachesNames.map(function deleteCache(cacheName) {
       return caches.delete(cacheName);

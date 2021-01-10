@@ -12,12 +12,12 @@ main().catch(console.error);
 
 async function main() {
   await cacheFiles();
-  console.log("service worker", urlsToCache);
 }
+
+console.log("service worker", urlsToCache);
 
 async function handleInstall() {
   self.skipWaiting();
-  console.log(`Service Worker (${version}) installed;`);
 }
 
 function handleActivation(event) {

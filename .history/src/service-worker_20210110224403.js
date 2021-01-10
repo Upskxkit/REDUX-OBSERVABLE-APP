@@ -49,9 +49,9 @@ function onFetch(event) {
 }
 
 async function router(req) {
-  let url = new URL(req.url);
+  let url = URL(req.url);
   let reqUrl = url.pathname;
-  let cache = await caches.open(cacheName);
+  let cache = caches.open(cacheName);
   let res;
   if (url.origin === location.origin) {
     let fetchOptions = {
@@ -72,7 +72,7 @@ async function router(req) {
 
     res = await cache.match(reqUrl);
 
-    if (res) {
+    if (res ) {
       return res;
     }
   }
@@ -82,7 +82,7 @@ async function cacheClear() {
   let cachesNames = await caches.keys();
   let oldCachesNames = cachesNames.filter(function matchOldCache(cacheName) {
     if (/^redux-app-cache-\d+$/.test(cacheName)) {
-      let [, cacheVersion] = cacheName.match(/^redux-app-cache-(\d+)$/);
+      let [, cacheVersion] = cacheName.match(/^redux-app-cache-(\d)$/);
 
       cacheVersion = cacheVersion != null ? Number(cacheVersion) : cacheVersion;
 
