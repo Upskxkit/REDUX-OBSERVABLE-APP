@@ -15,3 +15,5 @@ self.addEventListener("installed", (event) => {
 self.addEventListener("activated", () => {
   console.log("activated SW");
 });
+
+console.log("service worker"); 
