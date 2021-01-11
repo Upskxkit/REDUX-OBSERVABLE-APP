@@ -63,7 +63,18 @@ function InstallPWA() {
   }
 
   return (
-    <>{isIosDevice ? <div>ios</div> : <button onClick={onInstall}>Install</button>}</>
+    <>
+      <div>
+        {JSON.stringify(window.navigator.userAgent.toLowerCase())}
+        <hr/>
+        {JSON.stringify(window.navigator)}
+      </div>
+      {isIosDevice ? (
+        <div>ios</div>
+      ) : (
+        <button onClick={onInstall}>Install</button>
+      )}
+    </>
   );
 }
 
