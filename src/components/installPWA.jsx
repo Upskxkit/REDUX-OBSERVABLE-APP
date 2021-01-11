@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
+import IosModal from "./iosModal";
 
 const isIos = () => {
   const userAgent = window.navigator.userAgent.toLowerCase();
@@ -76,11 +77,10 @@ function InstallPWA() {
         <hr />
         {JSON.stringify(window.navigator)}
       </div>
-      {isIosDevice ? (
-        <div>ios</div>
-      ) : (
-        <button onClick={onInstall}>Install</button>
-      )}
+      {isIosDevice ? 
+        <IosModal/>
+          :
+        <button onClick={onInstall}>Install</button>}
     </>
   );
 }
