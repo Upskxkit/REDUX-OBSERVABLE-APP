@@ -3,6 +3,7 @@ import List from "antd/lib/list";
 import "./App.css";
 import Toolbar from "./components/toolbar";
 import Module1 from "./containers/module1/";
+import InstallPWA from "./components/installPWA";
 
 const data = ["Scalable", "Reusable", "Maintainable", "Multiple dispatch"];
 
@@ -12,6 +13,7 @@ function App() {
   const title = "Advanced Redux Pattern";
   return (
     <div className="App">
+      <InstallPWA />
       <Toolbar text={text} title={title} />
       <List
         size="small"

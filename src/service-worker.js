@@ -67,6 +67,8 @@ async function router(req) {
       return res;
     }
   }
+
+  return fetch(url);
 }
 
 async function cacheClear() {
