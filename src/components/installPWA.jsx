@@ -75,7 +75,7 @@ function InstallPWA() {
       <div>
         {JSON.stringify(window.navigator.userAgent.toLowerCase())}
         <hr />
-        {JSON.stringify(window.navigator)}
+        {JSON.stringify(window.navigator.standalone)}
       </div>
       {isIosDevice ? 
         <IosModal/>
