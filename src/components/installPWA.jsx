@@ -28,12 +28,12 @@ function onBeforeInstallPrompt(event) {
 
 //document.addEventListener("click", onGlobalClick);
 function InstallPWA() {
-  const [isIos, setIsIos] = useState(false);
+  const [isIosDevice, setIsIosDevice] = useState(false);
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
     if (isIos() && !isInStandaloneMode()) {
-      setIsIos(true);
+      setIsIosDevice(true);
       setIsShow(true);
     } else {
       window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
@@ -63,7 +63,7 @@ function InstallPWA() {
   }
 
   return (
-    <>{isIos ? <div>ios</div> : <button onClick={onInstall}>Install</button>}</>
+    <>{isIosDevice ? <div>ios</div> : <button onClick={onInstall}>Install</button>}</>
   );
 }
 
