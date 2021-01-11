@@ -24,7 +24,7 @@
     "workbox-webpack-plugin": "^6.0.2"
   },
   "scripts": {
-    "start": "serve build -l $PORT -s -C",
+    "start": "npx serve build -l $PORT -s -C",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
