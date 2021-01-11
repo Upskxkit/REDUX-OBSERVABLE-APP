@@ -31,6 +31,8 @@ function InstallPWA() {
   const [isIosDevice, setIsIosDevice] = useState(false);
   const [isShow, setIsShow] = useState(false);
 
+  let isInstall = window.localStorage.getItem("isInstall");
+
   useEffect(() => {
     if (isIos() && !isInStandaloneMode()) {
       setIsIosDevice(true);
@@ -55,6 +57,7 @@ function InstallPWA() {
     deferredPrompt.userChoice.then((result) => {
       if (result.outcome === "dismissed") {
         console.log("App wasn't installed");
+        window.localStorage.setItem("isInstall", true);
       } else {
         console.log("App was installed");
       }
@@ -62,11 +65,15 @@ function InstallPWA() {
     });
   }
 
+  if (!!isInstall) {
+    return <></>;
+  }
+
   return (
     <>
       <div>
         {JSON.stringify(window.navigator.userAgent.toLowerCase())}
-        <hr/>
+        <hr />
         {JSON.stringify(window.navigator)}
       </div>
       {isIosDevice ? (
