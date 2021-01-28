@@ -1,43 +1,22 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { IosModal } from "./iosModal";
-
-const isIos = () => {
-  const userAgent = window.navigator.userAgent.toLowerCase();
-  return /iphone|ipad|ipod/.test(userAgent);
-};
-// Detects if device is in standalone mode
-const isInStandaloneMode = () =>
-  "standalone" in window.navigator && window.navigator.standalone;
+import { isIos, isInStandaloneMode } from "./helpres";
+import { unregister } from "../registerSW";
 
 let deferredPrompt;
-
-function onGlobalClick() {
-  if (!deferredPrompt) {
-    return;
-  }
-
-  deferredPrompt.prompt();
-}
 
 function onBeforeInstallPrompt(event) {
   event.preventDefault();
 
   deferredPrompt = event;
-
-  // document.addEventListener("click", onGlobalClick);
 }
 
-//document.addEventListener("click", onGlobalClick);
 function InstallPWA() {
   const [isIosDevice, setIsIosDevice] = useState(false);
-  const [isShow, setIsShow] = useState(false);
-
-  let isInstall = window.localStorage.getItem("isInstall");
 
   useEffect(() => {
     if (isIos() && !isInStandaloneMode()) {
       setIsIosDevice(true);
-      setIsShow(true);
     } else {
       window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
 
@@ -58,15 +37,13 @@ function InstallPWA() {
     deferredPrompt.userChoice.then((result) => {
       if (result.outcome === "dismissed") {
         console.log("App wasn't installed");
-        window.localStorage.setItem("isInstall", true);
       } else {
         console.log("App was installed");
       }
-      setIsShow(false);
     });
   }
 
-  if (!!isInstall) {
+  if (isInStandaloneMode()) {
     return <></>;
   }
 
@@ -80,7 +57,10 @@ function InstallPWA() {
       {isIosDevice ? (
         <IosModal />
       ) : (
-        <button onClick={onInstall}>Install</button>
+        <>
+          <button onClick={onInstall}>Install</button>
+          <button onClick={unregister}>Unregister SW</button>
+        </>
       )}
     </>
   );
